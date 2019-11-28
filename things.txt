@@ -1,0 +1,44 @@
+Before you can use ChatterBot’s built in adapter for MongoDB, you will need to install MongoDB. Make sure MongoDB is running in your environment before you execute your program. To tell ChatterBot to use this adapter, you will need to set the storage_adapter parameter.
+
+storage_adapter="chatterbot.storage.MongoDatabaseAdapter"
+
+
+from chatterbot import ChatBot
+
+# Uncomment the following lines to enable verbose logging
+# import logging
+# logging.basicConfig(level=logging.INFO)
+
+# Create a new ChatBot instance
+bot = ChatBot(
+    'Terminal',
+    storage_adapter='chatterbot.storage.MongoDatabaseAdapter',
+    logic_adapters=[
+        'chatterbot.logic.BestMatch'
+    ],
+    database_uri='mongodb://localhost:27017/chatterbot-database'
+)
+
+print('Type something to begin...')
+
+while True:
+    try:
+        user_input = input()
+
+        bot_response = bot.get_response(user_input)
+
+        print(bot_response)
+
+    # Press ctrl-c or ctrl-d on the keyboard to exit
+    except (KeyboardInterrupt, EOFError, SystemExit):
+        break
+        
+#chatterBot weather
+from chatterbot import ChatBot
+
+chatbot = ChatBot(
+    'My Weather Bot',
+    logic_adapters=[
+        'chatterbot_weather.WeatherLogicAdapter'
+    ]
+)
